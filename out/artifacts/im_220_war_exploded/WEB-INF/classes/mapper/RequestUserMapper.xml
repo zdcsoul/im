@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.visizen.im.user.dao.RequestUserDao">
+
+    <resultMap id="requestUserMap" type="com.visizen.im.user.entity.RequestUser">
+        <result property="rId" column="r_id"/>
+        <result property="fromUser.userId" column="from_user"/>
+        <result property="fromStatus" column="from_status"/>
+        <result property="toUser.userId" column="to_user"/>
+        <result property="toStatus" column="to_status"/>
+        <result property="rResult" column="r_result"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <insert id="add" parameterType="com.visizen.im.user.entity.RequestUser">
+        insert into t_request_user(from_user,from_status,to_user,to_status,r_result,create_time)
+        values(#{fromUser.userId},#{fromStatus},#{toUser.userId},#{toStatus},#{rResult},#{createTime})
+    </insert>
+
+    <update id="update" parameterType="com.visizen.im.user.entity.RequestUser">
+        update t_request_user set
+        <if test="fromUser != null and fromUser.userId != null">
+            from_user = #{fromUser.userId}
+        </if>
+        <if test="fromStatus != null">
+            from_status = #{fromStatus}
+        </if>
+        <if test="toUser != null and toUser.userId != null">
+            to_user = #{toUser.userId}
+        </if>
+        <if test="toStatus != null">
+            to_status = #{toStatus}
+        </if>
+        <if test="rResult != null">
+            r_result = #{rResult}
+        </if>
+        where id = #{rId}
+    </update>
+
+    <select id="findUnReadMessage" resultMap="requestUserMap">
+        select * from t_request_user where to_user = #{0} and to_status = 0
+    </select>
+
+</mapper>

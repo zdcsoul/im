@@ -34,4 +34,9 @@ public class UserServiceImpl implements UserService {
     public List<User> likeUsername(String username) {
         return userDao.likeUsername(username);
     }
+
+    @Override
+    public User findByUsername(String username) {
+        return userDao.findByUsername(username);
+    }
 }

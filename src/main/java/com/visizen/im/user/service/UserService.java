@@ -10,4 +10,7 @@ public interface UserService {
     ResultVO regist(User user) throws Exception;
 
     List<User> likeUsername(String username);
+
+    User findByUsername(String username);
+
 }

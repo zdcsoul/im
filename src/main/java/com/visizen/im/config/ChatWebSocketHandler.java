@@ -1,5 +1,6 @@
 package com.visizen.im.config;
 
+import com.visizen.im.user.entity.User;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -17,10 +18,14 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     private static final List<WebSocketSession> sessions = Collections.synchronizedList(new ArrayList<>());
 
+    private static final List<Long> inlineUserIds = Collections.synchronizedList(new ArrayList<>());
+
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        System.out.println("客户端 " + session.getId() + " 已连接 sessionId:");
-        System.out.println(((HttpSession)session.getAttributes().get("session")).getId());
+        System.out.println("客户端 " + session.getId() + " 已连接");
+        HttpSession httpSession = (HttpSession)session.getAttributes().get("session");
+        User user = (User)httpSession.getAttribute("user");
+        inlineUserIds.add(user.getUserId());
         sessions.add(session);
     }
 
@@ -34,12 +39,18 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
         System.out.println("session " + session.getId() + " 异常，已关闭");
         if(session.isOpen()) session.close();
+        HttpSession httpSession = (HttpSession)session.getAttributes().get("session");
+        User user = (User)httpSession.getAttribute("user");
+        inlineUserIds.remove(user.getUserId());
         sessions.remove(session);
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         System.out.println("session " + session.getId() + " 正常关闭");
+        HttpSession httpSession = (HttpSession)session.getAttributes().get("session");
+        User user = (User)httpSession.getAttribute("user");
+        inlineUserIds.remove(user.getUserId());
         sessions.remove(session);
     }
 

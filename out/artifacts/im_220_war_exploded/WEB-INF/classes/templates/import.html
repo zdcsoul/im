@@ -65,18 +65,17 @@
             <button data-dismiss="modal" class="close" type="button">×</button>
             <h3>添加好友</h3>
         </div>
-        <form th:action="@{/manager/user/modifyMyPass}" method="post" id="mpForm">
-            <div class="modal-body">
-                <div class="control-group">
-                    <label class="control-label">好友名称 :</label>
-                    <div class="controls">
-                        <input type="text" class="span5" placeholder="好友名称" name="frendName" id="frendName"/>
-                    </div>
+        <div class="modal-body">
+            <div class="control-group">
+                <label class="control-label">好友名称 :</label>
+                <div class="controls">
+                    <input type="text" class="span5" placeholder="好友名称" id="requestUser"/>
                 </div>
             </div>
-            <div class="modal-footer">
-                <a data-dismiss="modal" class="btn" href="#">关闭</a></div>
-        </form>
+        </div>
+        <div class="modal-footer">
+            <input data-dismiss="modal" type="button" onclick="requestFrend()" class="btn" value="发送请求"/>
+        </div>
     </div>
     <div id="sidebar">
         <a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
@@ -127,7 +126,18 @@
     <script th:src="@{/js/matrix.tables.js}"></script>
     <script th:inline="javascript">
         /*<![CDATA[*/
-
+        var requestFrend = function(){
+            var username = $("#requestUser").val();
+            $.ajax({
+                url:path + "requestUser",
+                type:"post",
+                data:{username:username},
+                dataType:"json",
+                success:function(data){
+                    alert(data.message);
+                }
+            });
+        }
         /*]]>*/
     </script>
 </div>

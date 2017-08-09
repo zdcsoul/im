@@ -9,5 +9,6 @@
     <!--</settings>-->
     <mappers>
         <mapper resource="mapper/UserMapper.xml"></mapper>
+        <mapper resource="mapper/RequestUserMapper.xml"></mapper>
     </mappers>
 </configuration>
