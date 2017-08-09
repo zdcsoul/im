@@ -5,6 +5,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,12 +19,14 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        System.out.println("客户端 " + session.getId() + " 已连接");
+        System.out.println("客户端 " + session.getId() + " 已连接 sessionId:");
+        System.out.println(((HttpSession)session.getAttributes().get("session")).getId());
         sessions.add(session);
     }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        session.sendMessage(message);
         System.out.println("客户端 "+ session.getId() + " 发来消息 " + message.getPayload());
     }
 
@@ -42,6 +45,6 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     public boolean supportsPartialMessages() {
-        return super.supportsPartialMessages();
+        return false;
     }
 }
