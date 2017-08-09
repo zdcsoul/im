@@ -6,6 +6,9 @@
     <script th:src="@{/js/reconnect.js}"></script>
 </head>
 <body>
+<input id="st" value="send" type="text"/>
+<button id="send" onclick="send()">send</button>
+<button id="close connection" onclick="close()">close</button>
 <script th:inline="javascript">
     /*<![CDATA[*/
     var host = window.location.host;
@@ -35,6 +38,13 @@
     function messageHandler(data){
         console.log(data);
     }
+    var send = function () {
+        var data = document.getElementById("st").value;
+        websocket.send(data);
+    };
+    var close = function(){
+      websocket.close(1,"用户正常退出");
+    };
     /*]]>*/
 </script>
 </body>
