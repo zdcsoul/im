@@ -14,7 +14,7 @@ public class WebSocketHandShakeInterceptor implements HandshakeInterceptor {
     @Override
     public boolean beforeHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse, WebSocketHandler webSocketHandler, Map<String, Object> map) throws Exception {
         System.out.println("beforeHandshake Interceptor...");
-        return false;
+        return true;
     }
 
     @Override

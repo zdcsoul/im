@@ -15,7 +15,11 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class WebMvcConfig extends WebMvcConfigurerAdapter implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(chatWebSocketHandler(),"/ws").addInterceptors(webSocketHandShakeInterceptor()).withSockJS();
+        registry.addHandler(chatWebSocketHandler(),"/webSocketIMServer")
+                .addInterceptors(webSocketHandShakeInterceptor());
+        registry.addHandler(chatWebSocketHandler(),"/webSocketIMServer/sockjs")
+                .addInterceptors(webSocketHandShakeInterceptor())
+                .withSockJS();
     }
     @Bean
     public ChatWebSocketHandler chatWebSocketHandler(){
