@@ -40,10 +40,44 @@
                     </a>
                 </form>
             </li>
+            <li class="dropdown">
+                <a title="" href="#addUser" data-toggle="modal">
+                    <i class="icon icon-plus"></i>
+                    <span class="text">添加好友</span>
+                </a>
+            </li>
+            <li class="dropdown" id="add-group">
+                <a style="cursor: pointer" href="#">
+                    <i class="icon icon-plus"></i>
+                    <span class="text">加入群</span>
+                </a>
+            </li>
+            <li class="dropdown" id="create-group">
+                <a style="cursor: pointer" href="#">
+                    <i class="icon icon-plus-sign"></i>
+                    <span class="text">创建群</span>
+                </a>
+            </li>
         </ul>
     </div>
-    <!--close-top-Header-menu-->
-    <!--sidebar-menu-->
+    <div id="addUser" class="modal hide">
+        <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button">×</button>
+            <h3>添加好友</h3>
+        </div>
+        <form th:action="@{/manager/user/modifyMyPass}" method="post" id="mpForm">
+            <div class="modal-body">
+                <div class="control-group">
+                    <label class="control-label">好友名称 :</label>
+                    <div class="controls">
+                        <input type="text" class="span5" placeholder="好友名称" name="frendName" id="frendName"/>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a data-dismiss="modal" class="btn" href="#">关闭</a></div>
+        </form>
+    </div>
     <div id="sidebar">
         <a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
         <ul>
@@ -75,12 +109,12 @@
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/jquery.ui.custom.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
-    <script th:src="@{/js/jquery.flot.min.js}"></script>
-    <script th:src="@{/js/jquery.flot.resize.min.js}"></script>
+    <!--<script th:src="@{/js/jquery.flot.min.js}"></script>-->
+    <!--<script th:src="@{/js/jquery.flot.resize.min.js}"></script>-->
     <script th:src="@{/js/jquery.peity.min.js}"></script>
     <script th:src="@{/js/fullcalendar.min.js}"></script>
     <script th:src="@{/js/matrix.js}"></script>
-    <script th:src="@{/js/matrix.dashboard.js}"></script>
+    <!--<script th:src="@{/js/matrix.dashboard.js}"></script>-->
     <script th:src="@{/js/jquery.gritter.min.js}"></script>
     <script th:src="@{/js/matrix.interface.js}"></script>
     <script th:src="@{/js/matrix.chat.js}"></script>
