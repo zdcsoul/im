@@ -36,6 +36,7 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         path = /*[[@{/}]]*/;
+        user = /*[[${session.user}]]*/;
         /*]]>*/
     </script>
 </head>
@@ -110,7 +111,7 @@
                 </a>
                 <ul>
                     <li th:each="frend:${myFrends}">
-                        <a href="#" th:onclick="'goFrend('+${frend.userId}+')'" th:text="${frend.username}"></a>
+                        <a href="#" th:onclick="'goFrend('+${frend.userId}+',\''+${frend.username}+'\')'" th:text="${frend.username}"></a>
                     </li>
                 </ul>
             </li>

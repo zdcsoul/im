@@ -50,13 +50,16 @@ $(document).ready(function(){
         var obj = $.parseJSON(data);
         if(obj.type == "target"){
             $("#line-status").html(obj.content);
+        }else if(obj.type == "send"){
+            add_message(obj)
         }
     }
 });
-var goFrend = function (frendId) {
+var goFrend = function (frendId,frendName) {
     var msg = {
         type:"target",
-        targetUserId:frendId,
+        fromUser:user,
+        targetUser:{userId:frendId,username:frendName},
         content:""
     };
     websocket.send(JSON.stringify(msg));
