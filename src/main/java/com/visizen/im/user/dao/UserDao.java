@@ -13,4 +13,6 @@ public interface UserDao {
     User findByUsername(String username);
 
     List<User> likeUsername(String username);
+
+    List<User> findMyFrends(Long userId);
 }

@@ -12,6 +12,27 @@
     <link rel="stylesheet" th:href="@{/css/back_index.css}"/>
     <link rel="stylesheet" th:href="@{/css/uniform.css}"/>
     <link rel="stylesheet" th:href="@{/css/select2.css}"/>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/excanvas.min.js}"></script>
+    <script th:src="@{/js/jquery.ui.custom.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!--<script th:src="@{/js/jquery.flot.min.js}"></script>-->
+    <!--<script th:src="@{/js/jquery.flot.resize.min.js}"></script>-->
+    <script th:src="@{/js/jquery.peity.min.js}"></script>
+    <script th:src="@{/js/fullcalendar.min.js}"></script>
+    <script th:src="@{/js/matrix.js}"></script>
+    <!--<script th:src="@{/js/matrix.dashboard.js}"></script>-->
+    <script th:src="@{/js/jquery.gritter.min.js}"></script>
+    <script th:src="@{/js/matrix.interface.js}"></script>
+    <script th:src="@{/js/jquery.validate.js}"></script>
+    <script th:src="@{/js/matrix.form_validation.js}"></script>
+    <script th:src="@{/js/jquery.uniform.js}"></script>
+    <script th:src="@{/js/select2.min.js}"></script>
+    <script th:src="@{/js/matrix.popover.js}"></script>
+    <script th:src="@{/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/js/matrix.tables.js}"></script>
+    <script th:src="@{/js/matrix.chat.js}"></script>
+    <script th:src="@{/js/reconnect.js}" type="text/javascript"></script>
     <script th:inline="javascript">
         /*<![CDATA[*/
         path = /*[[@{/}]]*/;
@@ -88,8 +109,8 @@
                     <span class="label label-important">0</span>
                 </a>
                 <ul>
-                    <li>
-                        <a href="#">xxx</a>
+                    <li th:each="frend:${myFrends}">
+                        <a href="#" th:onclick="'goFrend('+${frend.userId}+')'" th:text="${frend.username}"></a>
                     </li>
                 </ul>
             </li>
@@ -104,26 +125,6 @@
         <div id="footer" class="span12"> CHAT
         </div>
     </div>
-    <script th:src="@{/js/excanvas.min.js}"></script>
-    <script th:src="@{/js/jquery.min.js}"></script>
-    <script th:src="@{/js/jquery.ui.custom.js}"></script>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <!--<script th:src="@{/js/jquery.flot.min.js}"></script>-->
-    <!--<script th:src="@{/js/jquery.flot.resize.min.js}"></script>-->
-    <script th:src="@{/js/jquery.peity.min.js}"></script>
-    <script th:src="@{/js/fullcalendar.min.js}"></script>
-    <script th:src="@{/js/matrix.js}"></script>
-    <!--<script th:src="@{/js/matrix.dashboard.js}"></script>-->
-    <script th:src="@{/js/jquery.gritter.min.js}"></script>
-    <script th:src="@{/js/matrix.interface.js}"></script>
-    <script th:src="@{/js/matrix.chat.js}"></script>
-    <script th:src="@{/js/jquery.validate.js}"></script>
-    <script th:src="@{/js/matrix.form_validation.js}"></script>
-    <script th:src="@{/js/jquery.uniform.js}"></script>
-    <script th:src="@{/js/select2.min.js}"></script>
-    <script th:src="@{/js/matrix.popover.js}"></script>
-    <script th:src="@{/js/jquery.dataTables.min.js}"></script>
-    <script th:src="@{/js/matrix.tables.js}"></script>
     <script th:inline="javascript">
         /*<![CDATA[*/
         var requestFrend = function(){

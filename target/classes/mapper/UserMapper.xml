@@ -22,4 +22,8 @@
         select * from t_user where username like concat(#{0},'%')
     </select>
 
+    <select id="findMyFrends" resultMap="userMap">
+        select * from t_user where user_id in (select f.frend_id from t_user u,t_frends f where u.user_id = f.user_id and u.user_id = #{0})
+    </select>
+
 </mapper>
