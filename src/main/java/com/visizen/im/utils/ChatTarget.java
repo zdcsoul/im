@@ -2,6 +2,8 @@ package com.visizen.im.utils;
 
 import com.visizen.im.user.entity.User;
 
+import java.util.Date;
+
 public class ChatTarget {
 
     private String type;
@@ -11,6 +13,8 @@ public class ChatTarget {
     private User targetUser;
 
     private String content;
+
+    private String sendTime;
 
     public String getType() {
         return type;
@@ -42,5 +46,13 @@ public class ChatTarget {
 
     public void setTargetUser(User targetUser) {
         this.targetUser = targetUser;
+    }
+
+    public String getSendTime() {
+        return sendTime;
+    }
+
+    public void setSendTime(String sendTime) {
+        this.sendTime = sendTime;
     }
 }

@@ -1,23 +1,23 @@
 var websocket;
 $(document).ready(function(){
 	
-	$('.chat-message button').click(function(){
-
+	$('#send').click(function(){
+        sendMessage();
 	});
 	
-	$('.chat-message input').keypress(function(e){
-		if(e.which == 13) {	
-
+	$('#send').keypress(function(e){
+		if(e.which == 13) {
+            sendMessage();
 		}
 	});
 	
    	var i = 0;
-	function add_message(username,msg) {
+	function add_message(username,msg,sendTime) {
 		i = i + 1;
 		var  inner = $('#chat-messages-inner');
 		var id = 'msg-'+i;
 		inner.append('<p id="'+id+'">'
-										+'<span class="msg-block"><strong>'+username+'</strong><span class="time">11:20</span>'
+										+'<span class="msg-block"><strong>'+username+'</strong><span class="time">'+sendTime+'</span>'
 										+'<span class="msg">'+msg+'</span></span></p>');
 		$('#'+id).hide().fadeIn(800);
 		$('#chat-messages').animate({ scrollTop: inner.height() },0);
@@ -51,11 +51,20 @@ $(document).ready(function(){
         if(obj.type == "target"){
             $("#line-status").html(obj.content);
         }else if(obj.type == "send"){
-            add_message(obj)
+            add_message(obj.fromUser.username,obj.content,obj.sendTime);
         }
     }
+    function sendMessage(){
+        var message = {};
+        var msg = $("#msg-box").val();
+        message.content = msg;
+        message.type = "send";
+        message.fromUser = user;
+        message.targetUser = targetUser;
+        websocket.send(JSON.stringify(message));
+    }
 });
-var goFrend = function (frendId,frendName) {
+var goFrend = function (frendId,frendName,sendTime) {
     var msg = {
         type:"target",
         fromUser:user,
@@ -63,4 +72,5 @@ var goFrend = function (frendId,frendName) {
         content:""
     };
     websocket.send(JSON.stringify(msg));
+    targetUser = {userId:frendId,username:frendName};
 }

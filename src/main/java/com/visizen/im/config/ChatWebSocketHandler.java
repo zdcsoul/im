@@ -3,6 +3,7 @@ package com.visizen.im.config;
 import com.google.gson.Gson;
 import com.visizen.im.user.entity.User;
 import com.visizen.im.utils.ChatTarget;
+import com.visizen.im.utils.CommonUtils;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -30,14 +31,15 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         ChatTarget ct = gson.fromJson(message.getPayload(),ChatTarget.class);
+        ct.setSendTime(CommonUtils.formatDate(new Date(),"yyyy-MM-dd HH:mm:ss"));
         if(Cts.TARGET.equals(ct.getType())){
-            ct.setTargetUser(getCurrentUser(session));
             ct.setContent(isInline(ct.getTargetUser().getUserId())?"在线":"离线");
             TextMessage msg = new TextMessage(gson.toJson(ct));
             session.sendMessage(msg);
         }else if(Cts.SEND.equals(ct.getType())){
             WebSocketSession targetSession = map.get(ct.getTargetUser().getUserId());
             targetSession.sendMessage(new TextMessage(gson.toJson(ct)));
+            session.sendMessage(new TextMessage(gson.toJson(ct)));
         }
     }
 
@@ -77,5 +79,18 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         HttpSession httpSession = (HttpSession)session.getAttributes().get("session");
         User user = (User)httpSession.getAttribute("user");
         return user;
+    }
+
+    /**
+     * 获取我的在线好友Id
+     * @return
+     */
+    public static List<Long> getMyFrendCount(List<Long> frendIds){
+        Set<Long> onlineLong = map.keySet();
+        List<Long> ids = new ArrayList<>();
+        for(Long frendId : frendIds){
+            if(onlineLong.contains(frendId)) ids.add(frendId);
+        }
+        return ids;
     }
 }

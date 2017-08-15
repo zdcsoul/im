@@ -37,6 +37,7 @@
         /*<![CDATA[*/
         path = /*[[@{/}]]*/;
         user = /*[[${session.user}]]*/;
+        tartgetUser = {};
         /*]]>*/
     </script>
 </head>
@@ -105,13 +106,13 @@
             <li th:class="submenu">
                 <a href="#">
                     <i class="icon icon-file"></i>
-                    <span>我的好友</span>
+                    <span th:text="'我的好友'+${friendsCount}"></span>
                     <i class="icon-chevron-right" style="float: right;line-height:20px;"></i>
                     <span class="label label-important">0</span>
                 </a>
                 <ul>
-                    <li th:each="frend:${myFrends}">
-                        <a href="#" th:onclick="'goFrend('+${frend.userId}+',\''+${frend.username}+'\')'" th:text="${frend.username}"></a>
+                    <li th:each="friend:${myFriends}">
+                        <a href="#" th:onclick="'goFrend('+${friend.userId}+',\''+${friend.username}+'\')'" th:text="${friend.username}" th:style="${friend.online == 1 ? 'color:yellow;' : ''}"></a>
                     </li>
                 </ul>
             </li>

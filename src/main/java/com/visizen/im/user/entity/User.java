@@ -7,11 +7,17 @@ import java.util.Collection;
 
 public class User implements UserDetails{
 
+    public static final int ONLINE_Y = 1;
+
+    public static final int ONLINE_N = 0;
+
     private Long userId;
 
     private String username;
 
     private String password;
+
+    private int online;
 
     public Long getUserId() {
         return userId;
@@ -62,4 +68,11 @@ public class User implements UserDetails{
         this.password = password;
     }
 
+    public int getOnline() {
+        return online;
+    }
+
+    public void setOnline(int online) {
+        this.online = online;
+    }
 }
